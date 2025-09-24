@@ -1,0 +1,231 @@
+{% extends "home/base.html" %}
+
+{% block title %}Home - Student Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Welcome to Student Portal</h1>
+        <p class="lead mb-4">Transform your future with our comprehensive courses and expert guidance</p>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light bg-opacity-25 text-white border-0">
+                            <div class="card-body">
+                                <i class="fas fa-users fa-2x mb-2"></i>
+                                <h3>{{ total_students }}+</h3>
+                                <p>Students Enrolled</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light bg-opacity-25 text-white border-0">
+                            <div class="card-body">
+                                <i class="fas fa-book fa-2x mb-2"></i>
+                                <h3>8+</h3>
+                                <p>Courses Available</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <div class="card bg-light bg-opacity-25 text-white border-0">
+                            <div class="card-body">
+                                <i class="fas fa-chalkboard-teacher fa-2x mb-2"></i>
+                                <h3>15+</h3>
+                                <p>Expert Instructors</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'students:registration' %}" class="btn btn-light btn-lg me-3">
+                        <i class="fas fa-user-plus"></i> Register Now
+                    </a>
+                    <a href="{% url 'home:about' %}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-info-circle"></i> Learn More
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Why Choose Our Portal?</h2>
+            <p class="lead text-muted">We provide the best learning experience for our students</p>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h4>Flexible Learning</h4>
+                        <p class="text-muted">Choose between online and physical classes based on your convenience and learning style.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Expert Instructors</h4>
+                        <p class="text-muted">Learn from industry professionals with years of experience in their respective fields.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <div class="feature-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h4>Certification</h4>
+                        <p class="text-muted">Receive recognized certificates upon course completion to boost your career prospects.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Courses Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Our Popular Courses</h2>
+            <p class="lead text-muted">Choose from a wide range of courses designed for your success</p>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Web Development</h5>
+                        <p class="card-text text-muted">Full-stack web development with modern technologies.</p>
+                        <div class="badge bg-primary">3-6 Months</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Data Science</h5>
+                        <p class="card-text text-muted">Master data analysis and machine learning techniques.</p>
+                        <div class="badge bg-primary">6 Months</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Digital Marketing</h5>
+                        <p class="card-text text-muted">Learn SEO, social media, and digital advertising strategies.</p>
+                        <div class="badge bg-primary">3 Months</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card card-hover border-0 shadow-sm h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Cyber Security</h5>
+                        <p class="card-text text-muted">Protect systems and networks from cyber threats.</p>
+                        <div class="badge bg-primary">6 Months</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-4">
+            <a href="{% url 'students:registration' %}" class="btn btn-primary btn-lg">
+                View All Courses and Register
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Recent Registrations Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Recent Student Registrations</h2>
+            <p class="lead text-muted">Join our growing community of learners</p>
+        </div>
+
+        {% if recent_students %}
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Student Name</th>
+                                        <th>Course</th>
+                                        <th>Enrollment Date</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in recent_students %}
+                                    <tr>
+                                        <td>{{ student.full_name }}</td>
+                                        <td>{{ student.get_course_name_display }}</td>
+                                        <td>{{ student.enrolled_date }}</td>
+                                        <td>
+                                            <span class="badge
+                                                {% if student.approve_status == 'pending' %}bg-warning
+                                                {% elif student.approve_status == 'accepted' %}bg-success
+                                                {% else %}bg-danger{% endif %}">
+                                                {{ student.get_approve_status_display }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="text-center py-4">
+            <i class="fas fa-user-graduate fa-3x text-muted mb-3"></i>
+            <p class="text-muted">No recent registrations yet. Be the first to register!</p>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card bg-primary text-white">
+                        <div class="card-body py-4">
+                            <h4>Ready to Start Your Journey?</h4>
+                            <p class="mb-3">Join thousands of successful students today</p>
+                            <a href="{% url 'students:registration' %}" class="btn btn-light btn-lg">
+                                <i class="fas fa-rocket"></i> Get Started Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

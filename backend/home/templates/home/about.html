@@ -1,0 +1,141 @@
+{% extends "home/base.html" %}
+
+{% block title %}About Us - Student Portal{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);">
+    <div class="container text-center">
+        <h1 class="display-4 fw-bold mb-4">About Student Portal</h1>
+        <p class="lead">Empowering students through quality education and innovative learning solutions</p>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="display-6 fw-bold mb-4">Our Mission</h2>
+                <p class="lead text-muted">
+                    At Student Portal, we believe that education is the most powerful tool for personal and
+                    professional transformation. Our mission is to make quality education accessible to
+                    everyone, regardless of their background or location.
+                </p>
+                <p class="text-muted">
+                    We provide a comprehensive platform that connects students with expert instructors,
+                    modern learning resources, and a supportive community. Our courses are designed to
+                    equip students with the skills needed to succeed in today's competitive world.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://via.placeholder.com/500x300/667eea/ffffff?text=Learning+Environment"
+                     alt="Learning Environment" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Our Values</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-graduation-cap fa-3x text-primary mb-3"></i>
+                        <h4>Excellence</h4>
+                        <p class="text-muted">We strive for excellence in everything we do, from course design to student support.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                        <h4>Community</h4>
+                        <p class="text-muted">We foster a supportive learning community where students can grow together.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4 mb-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <i class="fas fa-rocket fa-3x text-primary mb-3"></i>
+                        <h4>Innovation</h4>
+                        <p class="text-muted">We continuously innovate our teaching methods and course offerings.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Why Choose Us?</h2>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-success fa-2x"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Expert Instructors</h5>
+                        <p class="text-muted">Learn from industry professionals with real-world experience.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-success fa-2x"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Flexible Learning</h5>
+                        <p class="text-muted">Choose between online and physical classes that fit your schedule.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-check-circle text-success fa-2x"></i>
+                    </div>
+                    <div class="flex-grow-1 ms-3">
+                        <h5>Career Support</h5>
+                        <p class="text-muted">Get career guidance and placement assistance after course completion.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="display-6 fw-bold mb-3">Ready to Start Your Learning Journey?</h2>
+        <p class="lead mb-4">Join thousands of students who have transformed their careers with us</p>
+        <a href="{% url 'students:registration' %}" class="btn btn-light btn-lg me-3">
+            <i class="fas fa-user-plus"></i> Register Now
+        </a>
+        <a href="{% url 'home:contact' %}" class="btn btn-outline-light btn-lg">
+            <i class="fas fa-envelope"></i> Contact Us
+        </a>
+    </div>
+</section>
+{% endblock %}
+

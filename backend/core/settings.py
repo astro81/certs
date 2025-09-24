@@ -172,3 +172,9 @@ LOGIN_URL = '/admin-panel/login/'
 LOGIN_REDIRECT_URL = '/admin-panel/dashboard/'
 LOGOUT_REDIRECT_URL = '/admin-panel/login/'
 
+
+# Email configuration (optional, for sending confirmation emails)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
+DEFAULT_FROM_EMAIL = 'noreply@studentportal.com'
+
+

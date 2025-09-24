@@ -1,8 +1,12 @@
 from django.urls import path
-from .views import StudentCreateView
-from django.views.generic import TemplateView
+from . import views
+
+app_name = 'students'
 
 urlpatterns = [
-    path('', StudentCreateView.as_view(), name='student_register'),
-    path('success/', TemplateView.as_view(template_name="students/success.html"), name='student_success'),
+    path('register/', views.student_registration, name='registration'),
+    path('registration-success/<int:student_id>/', views.registration_success, name='registration_success'),
+    path('check-status/', views.check_registration_status, name='check_status'),
+    path('toggle-batch-schedule/', views.toggle_batch_schedule, name='toggle_batch_schedule'),
 ]
+

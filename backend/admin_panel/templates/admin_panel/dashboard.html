@@ -3,53 +3,189 @@
 {% block title %}Admin Dashboard{% endblock %}
 
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-dark dashboard-header">
-    <div class="container">
-        <a class="navbar-brand" href="#">Admin Panel</a>
-        <div class="navbar-nav ms-auto">
-            <span class="navbar-text me-3">Welcome, {{ user.username }}</span>
-            <a class="btn btn-outline-light btn-sm" href="{% url 'admin_panel:logout' %}">Logout</a>
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{% url 'admin_panel:student_applications' %}" class="btn btn-sm btn-primary">
+                <i class="fas fa-user-graduate"></i> View All Applications
+            </a>
         </div>
     </div>
-</nav>
+</div>
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Dashboard Overview</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="card text-white bg-primary mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Users</h5>
-                                    <p class="card-text display-6">{{ total_users }}</p>
-                                </div>
-                            </div>
+<!-- Statistics Cards -->
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Users
                         </div>
-                        <div class="col-md-3">
-                            <div class="card text-white bg-success mb-3">
-                                <div class="card-body">
-                                    <h5 class="card-title">Admin Users</h5>
-                                    <p class="card-text display-6">{{ admin_users }}</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_users }}</div>
                     </div>
+                    <div class="col-auto">
+                        <i class="fas fa-users fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                    <div class="mt-4">
-                        <h5>Quick Actions</h5>
-                        <div class="d-grid gap-2 d-md-flex">
-                            <a href="/admin/" class="btn btn-outline-primary me-md-2">Django Admin</a>
-                            <a href="{% url 'admin_panel:create_admin' %}" class="btn btn-outline-success">Create New Admin</a>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Admin Users
                         </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ admin_users }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-shield fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Total Students
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ total_students }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-user-graduate fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Pending Applications
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pending_students }}</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clock fa-2x text-gray-300"></i>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Quick Actions -->
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 mb-3">
+                        <a href="{% url 'admin_panel:student_applications' %}?status=pending"
+                           class="btn btn-warning btn-block">
+                            <i class="fas fa-clock"></i> Review Pending ({{ pending_students }})
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <a href="/admin/" target="_blank" class="btn btn-secondary btn-block">
+                            <i class="fas fa-cog"></i> Django Admin
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <a href="{% url 'admin_panel:student_applications' %}"
+                           class="btn btn-info btn-block">
+                            <i class="fas fa-list"></i> View All Applications
+                        </a>
+                    </div>
+                    <div class="col-lg-6 mb-3">
+                        <a href="{% url 'admin_panel:create_admin' %}" class="btn btn-success btn-block">
+                            <i class="fas fa-user-plus"></i> Create Admin User
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Application Statistics</h6>
+            </div>
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="statusChart" width="200" height="200"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-warning"></i> Pending: {{ pending_students }}
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Accepted: {{ accepted_students }}
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-danger"></i> Rejected: {{ rejected_students }}
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Pie Chart Example
+var ctx = document.getElementById("statusChart");
+var statusChart = new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+        labels: ["Pending", "Accepted", "Rejected"],
+        datasets: [{
+            data: [{{ pending_students }}, {{ accepted_students }}, {{ rejected_students }}],
+            backgroundColor: ['#f6c23e', '#1cc88a', '#e74a3b'],
+            hoverBackgroundColor: ['#f8d36c', '#36b9cc', '#ee5d52'],
+            hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+    },
+    options: {
+        maintainAspectRatio: false,
+        tooltips: {
+            backgroundColor: "rgb(255,255,255)",
+            bodyFontColor: "#858796",
+            borderColor: '#dddfeb',
+            borderWidth: 1,
+            xPadding: 15,
+            yPadding: 15,
+            displayColors: false,
+            caretPadding: 10,
+        },
+        legend: {
+            display: false
+        },
+        cutoutPercentage: 80,
+    },
+});
+</script>
 {% endblock %}

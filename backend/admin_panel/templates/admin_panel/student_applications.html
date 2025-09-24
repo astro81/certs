@@ -1,0 +1,164 @@
+{% extends "admin_panel/base.html" %}
+
+{% block title %}Student Applications - Admin Panel{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">
+        <i class="fas fa-user-graduate"></i> Student Applications
+    </h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group me-2">
+            <a href="{% url 'admin_panel:dashboard' %}" class="btn btn-sm btn-outline-secondary">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div class="row mb-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-primary text-white mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">Total Applications</div>
+                        <div class="h5 mb-0">{{ total_count }}</div>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clipboard-list fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-warning text-white mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">Pending</div>
+                        <div class="h5 mb-0">{{ pending_count }}</div>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-clock fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-success text-white mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">Accepted</div>
+                        <div class="h5 mb-0">{{ accepted_count }}</div>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-check-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6">
+        <div class="card bg-danger text-white mb-4">
+            <div class="card-body">
+                <div class="d-flex justify-content-between">
+                    <div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-1">Rejected</div>
+                        <div class="h5 mb-0">{{ rejected_count }}</div>
+                    </div>
+                    <div class="align-self-center">
+                        <i class="fas fa-times-circle fa-2x"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Filter Buttons -->
+<div class="card mb-4">
+    <div class="card-body">
+        <div class="btn-group" role="group">
+            <a href="?status=all" class="btn btn-outline-primary {% if status_filter == 'all' %}active{% endif %}">
+                All ({{ total_count }})
+            </a>
+            <a href="?status=pending" class="btn btn-outline-warning {% if status_filter == 'pending' %}active{% endif %}">
+                Pending ({{ pending_count }})
+            </a>
+            <a href="?status=accepted" class="btn btn-outline-success {% if status_filter == 'accepted' %}active{% endif %}">
+                Accepted ({{ accepted_count }})
+            </a>
+            <a href="?status=rejected" class="btn btn-outline-danger {% if status_filter == 'rejected' %}active{% endif %}">
+                Rejected ({{ rejected_count }})
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Applications Table -->
+<div class="card">
+    <div class="card-body">
+        {% if students %}
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Email</th>
+                        <th>Enrollment Date</th>
+                        <th>Mode</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    <tr class="student-row" onclick="loadStudentDetail({{ student.id }})">
+                        <td>STU{{ student.id|stringformat:"06d" }}</td>
+                        <td>
+                            <strong>{{ student.full_name }}</strong>
+                            <br>
+                            <small class="text-muted">Father: {{ student.fathers_name }}</small>
+                        </td>
+                        <td>{{ student.get_course_name_display }}</td>
+                        <td>{{ student.email_address }}</td>
+                        <td>{{ student.enrolled_date }}</td>
+                        <td>
+                            <span class="badge bg-info">{{ student.get_mode_of_learning_display }}</span>
+                        </td>
+                        <td>
+                            <span id="status-badge-{{ student.id }}" class="badge
+                                {% if student.approve_status == 'pending' %}bg-warning
+                                {% elif student.approve_status == 'accepted' %}bg-success
+                                {% else %}bg-danger{% endif %}">
+                                {{ student.get_approve_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary"
+                                    onclick="event.stopPropagation(); loadStudentDetail({{ student.id }})">
+                                <i class="fas fa-eye"></i> View
+                            </button>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-user-graduate fa-3x text-muted mb-3"></i>
+            <h4 class="text-muted">No student applications found</h4>
+            <p class="text-muted">There are no student applications with the selected filter.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

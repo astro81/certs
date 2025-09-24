@@ -1,0 +1,31 @@
+# pull official base image
+FROM python:3.14-rc-slim-bookworm
+
+# set work directory
+WORKDIR /app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy \
+    UV_PYTHON_DOWNLOADS=never \
+    UV_PROJECT_ENVIRONMENT=/app/.venv
+
+# install uv
+COPY --from=ghcr.io/astral-sh/uv:0.8.14 /uv /uvx /bin/
+
+COPY pyproject.toml uv.lock /_lock/
+
+# Synchronize dependencies.
+# This layer is cached until uv.lock or pyproject.toml change.
+RUN --mount=type=cache,target=/root/.cache \
+    cd /_lock && \
+    uv sync --frozen \
+    --no-install-project
+
+# copy project
+COPY . .
+
+EXPOSE 8000
+
+

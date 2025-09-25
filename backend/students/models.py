@@ -87,51 +87,6 @@ class Student(models.Model):
         }
         return f'<span class="badge bg-{status_colors[self.approve_status]}">{self.get_approve_status_display()}</span>'
 
-    # def send_registration_email(self):
-    #     """Send email notification when student registers successfully"""
-    #     subject = 'Registration Received - Student Portal'
-    #     html_message = render_to_string('students/emails/registration_received.html', {
-    #         'student': self,
-    #     })
-    #     plain_message = strip_tags(html_message)
-    #
-    #     try:
-    #         send_mail(
-    #             subject=subject,
-    #             message=plain_message,
-    #             html_message=html_message,
-    #             from_email=settings.DEFAULT_FROM_EMAIL,
-    #             recipient_list=[self.email_address],
-    #             fail_silently=False,
-    #         )
-    #         return True
-    #     except Exception as e:
-    #         print(f"Error sending registration email: {e}")
-    #         return False
-
-    # def send_status_update_email(self, old_status, new_status):
-    #     """Send email notification when application status changes"""
-    #     subject = f'Application Status Update - {self.get_approve_status_display()}'
-    #     html_message = render_to_string('students/emails/status_updated.html', {
-    #         'student': self,
-    #         'old_status': old_status,
-    #         'new_status': new_status,
-    #     })
-    #     plain_message = strip_tags(html_message)
-    #
-    #     try:
-    #         send_mail(
-    #             subject=subject,
-    #             message=plain_message,
-    #             html_message=html_message,
-    #             from_email=settings.DEFAULT_FROM_EMAIL,
-    #             recipient_list=[self.email_address],
-    #             fail_silently=False,
-    #         )
-    #         return True
-    #     except Exception as e:
-    #         print(f"Error sending status update email: {e}")
-    #         return False
 
     def send_registration_email(self):
         """Send email notification when student registers successfully"""

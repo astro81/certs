@@ -10,5 +10,6 @@ urlpatterns = [
     path('toggle-batch-schedule/', views.toggle_batch_schedule, name='toggle_batch_schedule'),
 
     path('test-email/', views.test_email_config, name='test_email_config'),
+    path('debug-email/', views.debug_email_config, name='debug_email'),  # Add this
 ]
 

@@ -174,11 +174,6 @@ LOGIN_REDIRECT_URL = '/admin-panel/dashboard/'
 LOGOUT_REDIRECT_URL = '/admin-panel/login/'
 
 
-# Email configuration (optional, for sending confirmation emails)
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'  # For development
-# DEFAULT_FROM_EMAIL = 'noreply@studentportal.com'
-
-
 # Email configuration
 EMAIL_BACKEND = env.str('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = env.str('DJANGO_EMAIL_HOST', default='')
@@ -188,3 +183,6 @@ EMAIL_HOST_USER = env.str('DJANGO_EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = env.str('DJANGO_EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = env.str('DJANGO_DEFAULT_FROM_EMAIL', default='noreply@studentportal.com')
 
+EMAIL_TIMEOUT = 30  # seconds
+EMAIL_SSL_KEYFILE = None
+EMAIL_SSL_CERTFILE = None

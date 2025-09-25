@@ -16,4 +16,5 @@ dependencies = [
     "icecream",
     "pillow",
     "psycopg[binary]",
+    "reportlab>=4.4.4",
 ]

@@ -127,3 +127,4 @@ def format_status_update_message(student, old_status, new_status):
     message += STATUS_UPDATE_FOOTER
 
     return message.strip()
+

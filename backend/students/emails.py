@@ -57,3 +57,4 @@ def send_status_update_email(student, old_status, new_status):
     except Exception as e:
         print(f"Error sending status update email to {student.email_address}: {e}")
         return False
+

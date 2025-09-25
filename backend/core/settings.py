@@ -60,6 +60,7 @@ LOCAL_APPS = [
     'students',
     'admin_panel',
     'home',
+    'certificates',
 ]
 
 INSTALLED_APPS = BUILTIN_APPS + EXTERNAL_APPS + LOCAL_APPS

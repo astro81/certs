@@ -114,3 +114,9 @@ class Student(models.Model):
             if old_status != self.approve_status:
                 send_status_update_email(self, old_status, self.approve_status)
 
+                # Generate certificate when status changes to accepted
+                if self.approve_status == 'accepted' and old_status != 'accepted':
+                    from certificates.services import CertificateService
+                    CertificateService.create_certificate_for_student(self)
+
+

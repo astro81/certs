@@ -1,0 +1,43 @@
+<!-- certificates/templates/certificates/certificate_list.html -->
+{% extends 'admin_panel/base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>Certificates</h1>
+
+    <div class="card">
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Certificate Number</th>
+                        <th>Student Name</th>
+                        <th>Course</th>
+                        <th>Issued Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for certificate in certificates %}
+                    <tr>
+                        <td>{{ certificate.certificate_number }}</td>
+                        <td>{{ certificate.student.full_name }}</td>
+                        <td>{{ certificate.student.get_course_name_display }}</td>
+                        <td>{{ certificate.issued_date }}</td>
+                        <td>
+                            <a href="{% url 'certificates:certificate_detail' certificate.id %}" class="btn btn-info btn-sm">View</a>
+                            <a href="{% url 'certificates:download_certificate' certificate.id %}" class="btn btn-primary btn-sm">Download</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">No certificates found</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

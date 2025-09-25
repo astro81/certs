@@ -186,3 +186,5 @@ DEFAULT_FROM_EMAIL = env.str('DJANGO_DEFAULT_FROM_EMAIL', default='noreply@stude
 EMAIL_TIMEOUT = 30  # seconds
 EMAIL_SSL_KEYFILE = None
 EMAIL_SSL_CERTFILE = None
+
+TEST_MAIL = env.str('DJANGO_TEST_MAIL', default='')

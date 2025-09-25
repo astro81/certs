@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header {
+            background: {% if student.approve_status == 'accepted' %}#28a745
+                      {% elif student.approve_status == 'rejected' %}#dc3545
+                      {% else %}#ffc107{% endif %};
+            color: white; padding: 30px; text-align: center;
+        }
+        .content { padding: 30px; background-color: #f8f9fa; }
+        .student-info { background: white; padding: 20px; border-radius: 5px; margin: 20px 0; }
+        .status-badge {
+            display: inline-block; padding: 8px 20px; border-radius: 20px; font-weight: bold; color: white;
+            background-color: {% if student.approve_status == 'accepted' %}#28a745
+                            {% elif student.approve_status == 'rejected' %}#dc3545
+                            {% else %}#ffc107{% endif %};
+        }
+        .next-steps { background: #e7f3ff; padding: 20px; border-radius: 5px; margin: 20px 0; border-left: 4px solid #007bff; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Application Status Updated!</h1>
+        <p>Student Portal - Application Review Complete</p>
+    </div>
+
+    <div class="content">
+        <h2>Dear {{ student.full_name }},</h2>
+
+        <p>Your application for <strong>{{ student.get_course_name_display }}</strong> has been reviewed by our administration team.</p>
+
+        <div class="student-info">
+            <h3>Application Decision:</h3>
+            <p><strong>Status:</strong> <span class="status-badge">{{ student.get_approve_status_display|upper }}</span></p>
+            <p><strong>Course:</strong> {{ student.get_course_name_display }}</p>
+            <p><strong>Reference ID:</strong> STU{{ student.id|stringformat:"06d" }}</p>
+            <p><strong>Review Date:</strong> {{ student.updated_at|date:"F d, Y" }}</p>
+        </div>
+
+        {% if student.approve_status == 'accepted' %}
+        <div class="next-steps">
+            <h3>🎉 Congratulations! Your application has been accepted!</h3>
+            <p><strong>Next Steps:</strong></p>
+            <ul>
+                <li>You will receive a welcome package within 2 business days</li>
+                <li>Course orientation will be scheduled for the coming week</li>
+                <li>Check your email for further instructions regarding course materials</li>
+                <li>Prepare for your first class as per the schedule provided</li>
+            </ul>
+            <p>We're excited to have you join our learning community!</p>
+        </div>
+        {% elif student.approve_status == 'rejected' %}
+        <div class="next-steps">
+            <h3>Application Review Note</h3>
+            <p>We regret to inform you that your application could not be approved at this time. This decision may be due to:</p>
+            <ul>
+                <li>Course capacity limitations</li>
+                <li>Prerequisite requirements not met</li>
+                <li>Schedule conflicts</li>
+            </ul>
+            <p><strong>Contact our admissions office</strong> to discuss alternative options or future opportunities.</p>
+        </div>
+        {% endif %}
+
+        <p><strong>Important Notes:</strong></p>
+        <ul>
+            <li>This decision is based on your submitted application materials</li>
+            <li>All decisions are final but may be appealed by contacting admissions</li>
+            <li>Keep your reference ID for all future communications</li>
+        </ul>
+
+        <div class="footer">
+            <p>This is an automated message. Please do not reply to this email.</p>
+            <p>&copy; 2024 Student Portal. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
+

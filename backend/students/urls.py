@@ -8,5 +8,7 @@ urlpatterns = [
     path('registration-success/<int:student_id>/', views.registration_success, name='registration_success'),
     path('check-status/', views.check_registration_status, name='check_status'),
     path('toggle-batch-schedule/', views.toggle_batch_schedule, name='toggle_batch_schedule'),
+
+    path('test-email/', views.test_email_config, name='test_email_config'),
 ]
 

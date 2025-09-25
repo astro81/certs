@@ -147,12 +147,13 @@ def update_student_status(request, student_id):
         new_status = request.POST.get('approve_status')
 
         if new_status in dict(Student.APPROVAL_STATUS):
+            # The email will be sent automatically via the model's save method
             student.approve_status = new_status
-            student.save()
+            student.save()  # This will trigger the status update email
 
             return JsonResponse({
                 'success': True,
-                'message': 'Status updated successfully!',
+                'message': 'Status updated successfully! Email notification sent to student.',
                 'new_status': student.get_approve_status_display(),
                 'status_class': student.approve_status
             })

@@ -1,3 +1,4 @@
+<!-- admin_panel/student_detail.html - Add certificate section -->
 <div class="row">
     <div class="col-md-4 text-center">
         {% if student.student_photo %}
@@ -79,6 +80,64 @@
             </div>
         </div>
 
+        <!-- Certificate Preview Section -->
+        {% if certificate %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-certificate me-2"></i>Certificate Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <table class="table table-sm">
+                            <tr>
+                                <th>Certificate Number:</th>
+                                <td>{{ certificate.certificate_number }}</td>
+                            </tr>
+                            <tr>
+                                <th>Issued Date:</th>
+                                <td>{{ certificate.issued_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Created:</th>
+                                <td>{{ certificate.created_at }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="d-flex gap-2">
+                            {% if certificate.certificate_file %}
+                            <button class="btn btn-primary btn-sm" onclick="previewCertificate('{{ certificate.certificate_file.url }}')">
+                                <i class="fas fa-eye me-1"></i>Preview Certificate
+                            </button>
+                            <a href="{{ certificate.certificate_file.url }}" class="btn btn-success btn-sm" download>
+                                <i class="fas fa-download me-1"></i>Download
+                            </a>
+                            {% else %}
+                            <span class="text-muted">Certificate file not uploaded yet</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% elif student.approve_status == 'accepted' %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="fas fa-certificate me-2"></i>Certificate Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info mb-0">
+                    <i class="fas fa-info-circle me-2"></i>
+                    Certificate is being generated. Please wait a moment or
+                    <button class="btn btn-sm btn-outline-primary ms-2" onclick="generateCertificate({{ student.id }})">
+                        Generate Now
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Status Update Form -->
         <div class="card mt-4">
             <div class="card-header">
@@ -117,3 +176,78 @@
         </div>
     </div>
 </div>
+
+<!-- Certificate Preview Modal -->
+<div class="modal fade" id="certificateModal" tabindex="-1" aria-labelledby="certificateModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="certificateModalLabel">Certificate Preview</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <iframe id="certificateViewer" src="" width="100%" height="600px" style="border: none;"></iframe>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <a id="downloadCertificate" href="" class="btn btn-primary" download>
+                    <i class="fas fa-download me-1"></i>Download Certificate
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function previewCertificate(certificateUrl) {
+    const viewer = document.getElementById('certificateViewer');
+    const downloadLink = document.getElementById('downloadCertificate');
+
+    viewer.src = certificateUrl;
+    downloadLink.href = certificateUrl;
+
+    const modal = new bootstrap.Modal(document.getElementById('certificateModal'));
+    modal.show();
+}
+
+function generateCertificate(studentId) {
+    if (confirm('Are you sure you want to generate a certificate for this student?')) {
+        fetch(`/admin-panel/generate-certificate/${studentId}/`, {
+            method: 'POST',
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': getCookie('csrftoken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                location.reload(); // Reload to show the certificate
+            } else {
+                alert('Error generating certificate: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error generating certificate');
+        });
+    }
+}
+
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+</script>
+

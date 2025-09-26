@@ -3,6 +3,7 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
+from certificates.models import Certificate
 from students.forms import StudentApprovalForm
 from students.models import Student
 from .forms import AdminUserCreationForm, EmailAuthenticationForm
@@ -116,6 +117,13 @@ def student_detail(request, student_id):
 
     student = get_object_or_404(Student, id=student_id)
 
+    # Get certificate if exists
+    certificate = None
+    try:
+        certificate = student.certificate
+    except Certificate.DoesNotExist:
+        certificate = None
+
     if request.method == 'POST':
         form = StudentApprovalForm(request.POST, instance=student)
         if form.is_valid():
@@ -132,6 +140,7 @@ def student_detail(request, student_id):
     context = {
         'student': student,
         'form': form,
+        'certificate': certificate,  # Add certificate to context
     }
 
     return render(request, 'admin_panel/student_detail.html', context)

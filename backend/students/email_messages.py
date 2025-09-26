@@ -6,7 +6,7 @@ Email message templates for student notifications
 REGISTRATION_EMAIL_PLAIN = """
 Dear {full_name},
 
-Thank you for submitting your application to the Student Portal. We have successfully received your registration for the following course:
+Thank you for submitting your application to the Student Portal. We have successfully received your certificate application for the following course:
 
 APPLICATION DETAILS:
 - Course: {course_name}
@@ -27,7 +27,7 @@ Need help? If you have any questions, please don't hesitate to contact our suppo
 
 This is an automated message. Please do not reply to this email.
 
-© 2024 Student Portal. All rights reserved.
+© 2025 Student Portal. All rights reserved.
 """
 
 # Status update email templates
@@ -46,22 +46,16 @@ APPLICATION DECISION:
 STATUS_ACCEPTED_MESSAGE = """
 🎉 CONGRATULATIONS! Your application has been accepted!
 
-NEXT STEPS:
-- You will receive a welcome package within 2 business days
-- Course orientation will be scheduled for the coming week
-- Check your email for further instructions regarding course materials
-- Prepare for your first class as per the schedule provided
-
-We're excited to have you join our learning community!
+- Your digital certificate is attached to this email
 """
+
 
 STATUS_REJECTED_MESSAGE = """
 APPLICATION REVIEW NOTE:
 
 We regret to inform you that your application could not be approved at this time. 
-This decision may be due to course capacity limitations, prerequisite requirements, or schedule conflicts.
 
-Contact our admissions office to discuss alternative options or future opportunities.
+Contact our admissions office to discuss alternative options.
 """
 
 STATUS_OTHER_MESSAGE = """
@@ -73,12 +67,11 @@ STATUS_UPDATE_FOOTER = """
 
 IMPORTANT NOTES:
 - This decision is based on your submitted application materials
-- All decisions are final but may be appealed by contacting admissions
-- Keep your reference ID for all future communications
+- Keep your reference ID for all future reference
 
 This is an automated message. Please do not reply to this email.
 
-© 2024 Student Portal. All rights reserved.
+© 2025 Student Portal. All rights reserved.
 """
 
 

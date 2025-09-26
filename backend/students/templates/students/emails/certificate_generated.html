@@ -1,0 +1,42 @@
+<!-- students/templates/students/emails/certificate_generated.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; }
+        .header { background: #f8f9fa; padding: 20px; text-align: center; }
+        .content { padding: 20px; }
+        .details { background: #e9ecef; padding: 15px; border-radius: 5px; }
+        .footer { background: #343a40; color: white; padding: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🎉 Your Certificate is Ready!</h1>
+    </div>
+
+    <div class="content">
+        <p>Dear <strong>{{ student.full_name }}</strong>,</p>
+
+        <p>We're pleased to inform you that your certificate for <strong>{{ student.get_course_name_display }}</strong> has been generated and is attached to this email.</p>
+
+        <div class="details">
+            <h3>Certificate Details:</h3>
+            <p><strong>Certificate Number:</strong> {{ certificate.certificate_number }}</p>
+            <p><strong>Issue Date:</strong> {{ certificate.issued_date }}</p>
+            <p><strong>Course:</strong> {{ student.get_course_name_display }}</p>
+            <p><strong>Duration:</strong> {{ student.course_duration }}</p>
+        </div>
+
+        <p>Your certificate can be verified online using this link:<br>
+        <a href="{{ verification_url }}">{{ verification_url }}</a></p>
+
+        <p>Keep this certificate safe as it validates your successful completion of the course.</p>
+    </div>
+
+    <div class="footer">
+        <p>© 2024 Student Portal. All rights reserved.</p>
+    </div>
+</body>
+</html>
+

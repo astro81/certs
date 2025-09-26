@@ -105,18 +105,18 @@ class Student(models.Model):
         # Save the student
         super().save(*args, **kwargs)
 
+        # Generate certificate when status changes to accepted
+        if not is_new and old_status != self.approve_status:
+            if self.approve_status == 'accepted' and old_status != 'accepted':
+                from certificates.services import CertificateService
+                CertificateService.create_certificate_for_student(self)
+
         # Send emails based on the operation
         if is_new:
             # New registration - send welcome/confirmation email
             send_registration_email(self)
         else:
-            # Status changed - send notification
+            # Status changed - send notification (certificate should now be available)
             if old_status != self.approve_status:
                 send_status_update_email(self, old_status, self.approve_status)
-
-                # Generate certificate when status changes to accepted
-                if self.approve_status == 'accepted' and old_status != 'accepted':
-                    from certificates.services import CertificateService
-                    CertificateService.create_certificate_for_student(self)
-
 

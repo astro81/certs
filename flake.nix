@@ -1,5 +1,5 @@
 {
-  description = "Disq hybrid development environment (Nix + Docker Compose)";
+  description = "Certs hybrid development environment (Nix + Docker Compose)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

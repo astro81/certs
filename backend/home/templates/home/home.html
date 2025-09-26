@@ -43,6 +43,9 @@
                     <a href="{% url 'students:registration' %}" class="btn btn-light btn-lg me-3">
                         <i class="fas fa-user-plus"></i> Register Now
                     </a>
+                    <a href="{% url 'students:check_status' %}" class="btn btn-outline-light btn-lg me-3">
+                        <i class="fas fa-search"></i> Check Status
+                    </a>
                     <a href="{% url 'home:about' %}" class="btn btn-outline-light btn-lg">
                         <i class="fas fa-info-circle"></i> Learn More
                     </a>
@@ -109,45 +112,20 @@
         </div>
 
         <div class="row">
+            {% for course_code, course_name in student.COURSE_CHOICES|slice:":4" %}
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="card card-hover border-0 shadow-sm h-100">
                     <div class="card-body">
-                        <h5 class="card-title">Web Development</h5>
-                        <p class="card-text text-muted">Full-stack web development with modern technologies.</p>
-                        <div class="badge bg-primary">3-6 Months</div>
+                        <h5 class="card-title">{{ course_name }}</h5>
+                        <p class="card-text text-muted">Comprehensive course covering all essential topics.</p>
+                        <div class="badge bg-primary">
+                            {% if course_code == 'web_development' or course_code == 'data_science' or course_code == 'cyber_security' %}6 Months
+                            {% else %}3 Months{% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card card-hover border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Data Science</h5>
-                        <p class="card-text text-muted">Master data analysis and machine learning techniques.</p>
-                        <div class="badge bg-primary">6 Months</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card card-hover border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Digital Marketing</h5>
-                        <p class="card-text text-muted">Learn SEO, social media, and digital advertising strategies.</p>
-                        <div class="badge bg-primary">3 Months</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6 col-lg-3 mb-4">
-                <div class="card card-hover border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">Cyber Security</h5>
-                        <p class="card-text text-muted">Protect systems and networks from cyber threats.</p>
-                        <div class="badge bg-primary">6 Months</div>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
 
         <div class="text-center mt-4">
@@ -229,3 +207,4 @@
     </div>
 </section>
 {% endblock %}
+

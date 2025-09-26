@@ -5,8 +5,8 @@ from students.models import Student
 def home(request):
     """Home page view"""
     # Get some statistics for the home page
-    total_students = Student.objects.count()
-    recent_students = Student.objects.order_by('-created_at')[:5]
+    total_students = Student.objects.count() or 0
+    recent_students = Student.objects.order_by('-created_at')[:5] or []
 
     context = {
         'total_students': total_students,

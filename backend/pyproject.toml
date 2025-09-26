@@ -16,5 +16,6 @@ dependencies = [
     "icecream",
     "pillow",
     "psycopg[binary]",
+    "pypdf2>=3.0.1",
     "reportlab>=4.4.4",
 ]

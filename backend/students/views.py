@@ -30,12 +30,22 @@ def registration_success(request, student_id):
 
 def check_registration_status(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        # email = request.POST.get('email')
+        reference_id = request.POST.get('reference_id')
         try:
-            student = Student.objects.get(email_address=email)
-            return render(request, 'students/status_result.html', {'student': student})
+            # student = Student.objects.get(email_address=email)
+            # return render(request, 'students/status_result.html', {'student': student})
+
+            # Remove any non-numeric characters and convert to integer
+            clean_reference_id = ''.join(filter(str.isdigit, reference_id))
+            if clean_reference_id:
+                student_id = int(clean_reference_id)
+                student = Student.objects.get(id=student_id)
+                return render(request, 'students/status_result.html', {'student': student})
+            else:
+                messages.error(request, 'Please enter a valid reference ID.')
         except Student.DoesNotExist:
-            messages.error(request, 'No registration found with this email address.')
+            messages.error(request, 'No registration found with this reference ID. Please check your email and try again.')
 
     return render(request, 'students/check_status.html')
 

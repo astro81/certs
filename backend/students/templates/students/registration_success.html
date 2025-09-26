@@ -18,7 +18,7 @@
                     <div class="alert alert-info mt-4">
                         <h5>Application Details:</h5>
                         <ul class="list-unstyled">
-                            <li><strong>Reference ID:</strong> STU{{ student.id|stringformat:"06d" }}</li>
+                            <li><strong>Reference ID:</strong> {{ student.get_display_reference_id }}</li>
                             <li><strong>Course:</strong> {{ student.get_course_name_display }}</li>
                             <li><strong>Mode:</strong> {{ student.get_mode_of_learning_display }}</li>
                             <li><strong>Status:</strong> <span class="badge bg-warning">Pending</span></li>
@@ -38,3 +38,4 @@
     </div>
 </div>
 {% endblock %}
+

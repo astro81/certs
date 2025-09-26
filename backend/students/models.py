@@ -93,6 +93,12 @@ class Student(models.Model):
         }
         return f'<span class="badge bg-{status_colors[self.approve_status]}">{self.get_approve_status_display()}</span>'
 
+
+    def get_display_reference_id(self):
+        """Return a formatted reference ID for display purposes"""
+        return f"STU{self.id:06d}"
+
+
     def save(self, *args, **kwargs):
         # Check if this is a new student (registration)
         is_new = self._state.adding

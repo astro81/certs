@@ -29,7 +29,7 @@
                             <table class="table table-bordered">
                                 <tr>
                                     <th>Reference ID</th>
-                                    <td>STU{{ student.id|stringformat:"06d" }}</td>
+                                    <td>{{ student.get_display_reference_id }}</td>
                                 </tr>
                                 <tr>
                                     <th>Course</th>

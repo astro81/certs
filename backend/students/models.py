@@ -1,6 +1,8 @@
 from django.db import models
 from django.core.validators import FileExtensionValidator
 import os
+import uuid
+
 from .emails import send_registration_email, send_status_update_email
 
 def student_photo_upload_path(instance, filename):
@@ -32,6 +34,13 @@ class Student(models.Model):
         ('java_programming', 'Java Programming'),
         ('cyber_security', 'Cyber Security'),
     ]
+
+    reference_id = models.UUIDField(
+        default=uuid.uuid4,
+        unique=True,
+        editable=False,
+        verbose_name="Reference ID"
+    )
 
     # Required Fields
     full_name = models.CharField(max_length=100)

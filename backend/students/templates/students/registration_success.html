@@ -21,7 +21,7 @@
                             <li><strong>Reference ID:</strong> STU{{ student.id|stringformat:"06d" }}</li>
                             <li><strong>Course:</strong> {{ student.get_course_name_display }}</li>
                             <li><strong>Mode:</strong> {{ student.get_mode_of_learning_display }}</li>
-                            <li><strong>Status:</strong> <span class="badge bg-warning">Pending Approval</span></li>
+                            <li><strong>Status:</strong> <span class="badge bg-warning">Pending</span></li>
                         </ul>
                     </div>
 
@@ -30,9 +30,6 @@
                     <div class="mt-4">
                         <a href="{% url 'students:check_status' %}" class="btn btn-primary me-2">
                             Check Application Status
-                        </a>
-                        <a href="{% url 'students:registration' %}" class="btn btn-outline-secondary">
-                            Register Another Student
                         </a>
                     </div>
                 </div>

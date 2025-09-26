@@ -20,42 +20,42 @@
     <div class="content">
         <p>Dear <strong>{{ student.full_name }}</strong>,</p>
 
-        <div class="congratulations">
-            <h3>CONGRATULATIONS!</h3>
-            <p>Your application for <strong>{{ student.get_course_name_display }}</strong> has been accepted!</p>
-        </div>
+<!--        <div class="congratulations">-->
+<!--            <h3>CONGRATULATIONS!</h3>-->
+<!--            <p>Your application for <strong>{{ student.get_course_name_display }}</strong> has been accepted!</p>-->
+<!--        </div>-->
 
-        <div class="next-steps">
-            <h3>NEXT STEPS:</h3>
-            <ul>
-                <li>You will receive a welcome package within 2 business days</li>
-                <li>Course orientation will be scheduled for the coming week</li>
-                <li>Check your email for further instructions regarding course materials</li>
-                <li>Prepare for your first class as per the schedule provided</li>
-            </ul>
-        </div>
+<!--        <div class="next-steps">-->
+<!--            <h3>NEXT STEPS:</h3>-->
+<!--            <ul>-->
+<!--                <li>You will receive a welcome package within 2 business days</li>-->
+<!--                <li>Course orientation will be scheduled for the coming week</li>-->
+<!--                <li>Check your email for further instructions regarding course materials</li>-->
+<!--                <li>Prepare for your first class as per the schedule provided</li>-->
+<!--            </ul>-->
+<!--        </div>-->
 
-        {% if certificate %}
-        <div class="certificate-info">
-            <h3>📜 YOUR CERTIFICATE:</h3>
-            <p>We're pleased to inform you that your certificate has been generated and is attached to this email.</p>
+<!--        {% if certificate %}-->
+<!--        <div class="certificate-info">-->
+<!--            <h3>📜 YOUR CERTIFICATE:</h3>-->
+<!--            <p>We're pleased to inform you that your certificate has been generated and is attached to this email.</p>-->
 
-            <p><strong>Certificate Details:</strong></p>
-            <ul>
-                <li><strong>Certificate Number:</strong> {{ certificate.certificate_number }}</li>
-                <li><strong>Issue Date:</strong> {{ certificate.issued_date }}</li>
-                <li><strong>Course:</strong> {{ student.get_course_name_display }}</li>
-                <li><strong>Duration:</strong> {{ student.course_duration }}</li>
-            </ul>
+<!--            <p><strong>Certificate Details:</strong></p>-->
+<!--            <ul>-->
+<!--                <li><strong>Certificate Number:</strong> {{ certificate.certificate_number }}</li>-->
+<!--                <li><strong>Issue Date:</strong> {{ certificate.issued_date }}</li>-->
+<!--                <li><strong>Course:</strong> {{ student.get_course_name_display }}</li>-->
+<!--                <li><strong>Duration:</strong> {{ student.course_duration }}</li>-->
+<!--            </ul>-->
 
-            {% if verification_url %}
-            <p><strong>Verification:</strong> Your certificate can be verified online at:<br>
-            <a href="{{ verification_url }}">{{ verification_url }}</a></p>
-            {% endif %}
+<!--            {% if verification_url %}-->
+<!--            <p><strong>Verification:</strong> Your certificate can be verified online at:<br>-->
+<!--            <a href="{{ verification_url }}">{{ verification_url }}</a></p>-->
+<!--            {% endif %}-->
 
-            <p>Your certificate is attached as a PDF file. Keep it safe as it validates your successful completion.</p>
-        </div>
-        {% endif %}
+<!--            <p>Your certificate is attached as a PDF file. Keep it safe as it validates your successful completion.</p>-->
+<!--        </div>-->
+<!--        {% endif %}-->
 
         <p>We're excited to have you join our learning community!</p>
     </div>

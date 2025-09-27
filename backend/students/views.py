@@ -33,9 +33,6 @@ def check_registration_status(request):
         # email = request.POST.get('email')
         reference_id = request.POST.get('reference_id')
         try:
-            # student = Student.objects.get(email_address=email)
-            # return render(request, 'students/status_result.html', {'student': student})
-
             # Remove any non-numeric characters and convert to integer
             clean_reference_id = ''.join(filter(str.isdigit, reference_id))
             if clean_reference_id:

@@ -175,6 +175,9 @@ LOGIN_REDIRECT_URL = '/admin-panel/dashboard/'
 LOGOUT_REDIRECT_URL = '/admin-panel/login/'
 
 
+SITE_URL = env.str('SITE_URL', default='http://localhost:8000')
+
+
 # Email configuration
 EMAIL_BACKEND = env.str('DJANGO_EMAIL_BACKEND', default='django.core.mail.backends.console.EmailBackend')
 EMAIL_HOST = env.str('DJANGO_EMAIL_HOST', default='')

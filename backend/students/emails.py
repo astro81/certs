@@ -46,17 +46,6 @@ def send_status_update_email(student, old_status, new_status):
     })
 
     try:
-        # send_mail(
-        #     subject=get_status_update_subject(student.get_approve_status_display()),
-        #     message=format_status_update_message(student, old_status, new_status),
-        #     html_message=html_message,
-        #     from_email=settings.DEFAULT_FROM_EMAIL,
-        #     recipient_list=[student.email_address],
-        #     fail_silently=False,
-        # )
-        # print(f"Status update email sent to: {student.email_address}")
-        # return True
-        # Create EmailMessage object for more control
         email = EmailMessage(
             subject=get_status_update_subject(student.get_approve_status_display()),
             body=format_status_update_message(student, old_status, new_status),
@@ -71,8 +60,18 @@ def send_status_update_email(student, old_status, new_status):
         # Attach certificate PDF if status is accepted and certificate exists
         if new_status == 'accepted' and hasattr(student, 'certificate'):
             certificate = student.certificate
+
+            # Attach certificate file
             if certificate.certificate_file and os.path.exists(certificate.certificate_file.path):
                 email.attach_file(certificate.certificate_file.path)
+
+            # Generate and attach QR code
+            qr_buffer = certificate.generate_qr_code()
+            email.attach(
+                f'certificate_qr_{certificate.certificate_number}.png',
+                qr_buffer.getvalue(),
+                'image/png'
+            )
 
         # Send email
         email.send(fail_silently=False)

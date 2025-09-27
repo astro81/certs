@@ -32,7 +32,7 @@ def draw_header(c, page_width, page_height):
 
     header_img_width, header_img_height = 600, 120
     x_top = (page_width - header_img_width) / 2
-    y_top = page_height - header_img_height - 2  # 30px margin from top
+    y_top = page_height - header_img_height - 2  # margin from top
     c.drawImage(header_image_path, x_top, y_top, header_img_width, header_img_height)
 
 

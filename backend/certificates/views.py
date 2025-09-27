@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from students.models import Student
 from .models import Certificate
 from .services import CertificateService
+import base64
 
 
 @login_required
@@ -25,23 +26,6 @@ def certificate_detail(request, certificate_id):
     })
 
 
-@login_required
-def download_certificate(request, certificate_id):
-    """Download certificate PDF"""
-    certificate = get_object_or_404(Certificate, id=certificate_id)
-
-    if certificate.certificate_file:
-        response = HttpResponse(certificate.certificate_file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="{certificate.certificate_file.name}"'
-        return response
-    else:
-        # Regenerate if file doesn't exist
-        CertificateService.regenerate_certificate(certificate)
-        response = HttpResponse(certificate.certificate_file.read(), content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="{certificate.certificate_file.name}"'
-        return response
-
-
 def view_certificate_public(request, certificate_number):
     """Public view for certificate verification"""
     certificate = get_object_or_404(Certificate, certificate_number=certificate_number)
@@ -49,3 +33,31 @@ def view_certificate_public(request, certificate_number):
         'certificate': certificate
     })
 
+
+def certificate_preview(request, verification_code):
+    """View for certificate preview and download"""
+    certificate = get_object_or_404(Certificate, verification_code=verification_code)
+
+    # Generate QR code as base64 for embedding in HTML
+    qr_buffer = certificate.generate_qr_code()
+    qr_base64 = base64.b64encode(qr_buffer.getvalue()).decode()
+
+    context = {
+        'certificate': certificate,
+        'student': certificate.student,
+        'qr_code_base64': qr_base64,
+    }
+
+    return render(request, 'certificates/preview.html', context)
+
+
+def download_certificate(request, verification_code):
+    """View for downloading certificate"""
+    certificate = get_object_or_404(Certificate, verification_code=verification_code)
+
+    if certificate.certificate_file:
+        response = HttpResponse(certificate.certificate_file.read(), content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="certificate_{certificate.certificate_number}.pdf"'
+        return response
+    else:
+        return HttpResponse("Certificate file not found", status=404)

@@ -47,6 +47,14 @@ STATUS_ACCEPTED_MESSAGE = """
 🎉 CONGRATULATIONS! Your application has been accepted!
 
 - Your digital certificate is attached to this email
+- A QR code is included for quick verification and access to your certificate
+- You can also preview and download your certificate using the link below:
+  {certificate_url}
+
+SCAN THE QR CODE TO:
+- View your certificate online
+- Download a digital copy
+- Share with employers or on social media
 """
 
 
@@ -110,7 +118,14 @@ def format_status_update_message(student, old_status, new_status):
 
     # Add status-specific message
     if student.approve_status == 'accepted':
-        message += STATUS_ACCEPTED_MESSAGE
+        certificate_url = ""
+
+        if hasattr(student, 'certificate'):
+            certificate_url = student.certificate.get_certificate_url()
+
+        message += STATUS_ACCEPTED_MESSAGE.format(certificate_url=certificate_url)
+
+        # message += STATUS_ACCEPTED_MESSAGE
     elif student.approve_status == 'rejected':
         message += STATUS_REJECTED_MESSAGE
     else:

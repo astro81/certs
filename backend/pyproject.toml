@@ -17,5 +17,6 @@ dependencies = [
     "pillow",
     "psycopg[binary]",
     "pypdf2>=3.0.1",
+    "qrcode[pil]>=8.2",
     "reportlab>=4.4.4",
 ]

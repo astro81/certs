@@ -1,0 +1,43 @@
+<!-- certificates/templates/certificates/preview.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Certificate - {{ student.full_name }}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; text-align: center; }
+        .certificate-info { background: #f9f9f9; padding: 20px; border-radius: 10px; margin: 20px 0; }
+        .actions { margin: 20px 0; }
+        .btn { display: inline-block; padding: 10px 20px; margin: 5px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        .btn-download { background: #28a745; }
+        .qr-code { margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎓 Certificate of Completion</h1>
+
+        <div class="certificate-info">
+            <h2>{{ student.full_name }}</h2>
+            <p><strong>Course:</strong> {{ student.get_course_name_display }}</p>
+            <p><strong>Certificate Number:</strong> {{ certificate.certificate_number }}</p>
+            <p><strong>Issued Date:</strong> {{ certificate.issued_date }}</p>
+            <p><strong>Reference ID:</strong> {{ student.get_display_reference_id }}</p>
+        </div>
+
+        <div class="qr-code">
+            <h3>Scan QR Code for Verification</h3>
+            <img src="data:image/png;base64,{{ qr_code_base64 }}" alt="Certificate QR Code" width="200">
+        </div>
+
+        <div class="actions">
+            <a href="{% url 'download_certificate' certificate.verification_code %}" class="btn btn-download">
+                📥 Download Certificate PDF
+            </a>
+            <a href="/" class="btn">🏠 Return to Home</a>
+        </div>
+
+        <p><small>This certificate can be verified using the QR code or certificate number above.</small></p>
+    </div>
+</body>
+</html>
